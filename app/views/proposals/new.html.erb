@@ -1,0 +1,41 @@
+<form>
+
+  <p>
+    <label>Email</label>
+    <input type="text" name="">
+  </p>
+
+  <fieldset>
+    <legend>New Proposal</legend>
+    <p>
+      <label>Title</label>
+      <input type="text" name="">
+    </p>
+    <p>
+      <label>Budget</label>
+      <input type="text" name="">
+    </p>
+    <p>
+      <label>Why Me?</label>
+      <input type="text" name="">
+    </p>
+    <fieldset>
+    <p>
+      <label>Fees Breakdown</label>
+      <input type="text" name="">
+    </p>
+  </fieldset>
+  &nbsp;
+  <fieldset>
+    <p>
+      <label>Milestones/Deliverables</label>
+      <input type="text" name="">
+    </p>
+  </fieldset>
+  </fieldset>
+  <input type="submit"/>
+</form>
+
+<%= form_for(@proposal) do |f| %>
+<% binding.pry %>
+<% end %>

@@ -298,3 +298,107 @@ Migrating to CreateFees (20171213072248)
   [1m[36m (0.8ms)[0m  [1mcommit transaction[0m
   [1m[35mFee Load (0.2ms)[0m  SELECT "fees".* FROM "fees" WHERE "fees"."proposal_id" = ?  [["proposal_id", 1]]
   [1m[36mMilestone Load (0.2ms)[0m  [1mSELECT "milestones".* FROM "milestones" WHERE "milestones"."proposal_id" = ?[0m  [["proposal_id", 1]]
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:38:11 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 431ms (Views: 421.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fees.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2017-12-12 23:38:11 -0800
+
+
+Started GET "/assets/milestones.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2017-12-12 23:38:11 -0800
+
+
+Started GET "/assets/fees.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2017-12-12 23:38:11 -0800
+
+
+Started GET "/assets/milestones.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2017-12-12 23:38:11 -0800
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:38:43 -0800
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 23ms (Views: 23.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:39:36 -0800
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 22ms (Views: 21.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:40:02 -0800
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 22ms (Views: 21.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:40:20 -0800
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 22ms (Views: 21.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:40:33 -0800
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 22ms (Views: 21.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:40:42 -0800
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 21ms (Views: 20.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:40:52 -0800
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 22ms (Views: 20.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:42:20 -0800
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 42ms (Views: 31.1ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:42:51 -0800
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (7.8ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.0ms)
+
+ActionView::Template::Error (undefined method `pry' for #<Binding:0x00007fa8626cd920>
+Did you mean?  try):
+    37: </form>
+    38: 
+    39: <%= form_for(@proposal) do |f| %>
+    40: <% binding.pry %>
+    41: <% end %>
+  app/views/proposals/new.html.erb:40:in `block in _app_views_proposals_new_html_erb__1720544782548776889_70180598626840'
+  app/views/proposals/new.html.erb:39:in `_app_views_proposals_new_html_erb__1720544782548776889_70180598626840'
+
+
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (7.2ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (77.5ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (74.1ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/braydonwhitmarsh/.rvm/gems/ruby-2.3.5/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (163.4ms)
+
+
+Started GET "/proposals/new" for ::1 at 2017-12-12 23:43:32 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProposalsController#new as HTML
+  Rendered proposals/new.html.erb within layouts/application (22088.1ms)
+Completed 401 Unauthorized in 22119ms (ActiveRecord: 0.3ms)
