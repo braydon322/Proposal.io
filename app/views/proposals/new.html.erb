@@ -1,41 +1,66 @@
-<form>
-
-  <p>
-    <label>Email</label>
-    <input type="text" name="">
-  </p>
-
-  <fieldset>
-    <legend>New Proposal</legend>
-    <p>
-      <label>Title</label>
-      <input type="text" name="">
-    </p>
-    <p>
-      <label>Budget</label>
-      <input type="text" name="">
-    </p>
-    <p>
-      <label>Why Me?</label>
-      <input type="text" name="">
-    </p>
-    <fieldset>
-    <p>
-      <label>Fees Breakdown</label>
-      <input type="text" name="">
-    </p>
-  </fieldset>
-  &nbsp;
-  <fieldset>
-    <p>
-      <label>Milestones/Deliverables</label>
-      <input type="text" name="">
-    </p>
-  </fieldset>
-  </fieldset>
-  <input type="submit"/>
-</form>
-
-<%= form_for(@proposal) do |f| %>
-<% binding.pry %>
+<fieldset>
+  <%= form_for(@proposal) do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+    <br>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+    <br>
+  <%= f.label :budget %>
+  <%= f.number_field :budget %>
+    <br>
+  <%= f.label :why_me %>
+  <%= f.text_field :why_me %>
+<br>
+<fieldset>
+  <legend>Fees</legend>
+  <%= f.fields_for :fees do |fee_builder| %>
+    <%= fee_builder.label :content %>
+    <%= fee_builder.text_field :content %><br>
+    <%= fee_builder.label :price_breakdown %>
+    <%= fee_builder.number_field :price_breakdown %><br>
+  <% end %>
+</fieldset>
+<br>
+<fieldset>
+  <legend>Milestones</legend>
+  <%= f.fields_for :milestones do |milestone_builder| %>
+    <%= milestone_builder.label :content %>
+    <%= milestone_builder.text_field :content %><br>
+    <%= milestone_builder.label :due_date %>
+    <%= milestone_builder.text_field :due_date %><br>
+  <% end %>
+</fieldset>
+<br>
+  <%= f.submit %>
 <% end %>
+</fieldset>
+
+<!--
+
+1. Need to take in an unlimited amount of Fees + Milestones/Deliverables
+    fees = [
+      {:content => "Logo Design/Branding"},
+      {:pricing_breakdown => "$175"}
+    ]
+
+    milestones = [
+      {:content => "Brainstorming/Planning"},
+      {:due_date => "Dec. 5th"}
+    ]
+
+    :proposal => {
+      :email => "test@test.com",
+      :fees_attributes => [
+        {:content => "Logo Design/Branding"},
+        {:pricing_breakdown => "$175"}
+      ],
+      :milestones_attributes => [
+      {:content => "Brainstorming/Planning"},
+      {:due_date => "Dec. 5th"}
+      ]
+    }
+
+Proposal.new(params) #=> Every key in the params hash needs to repsond to some kind of writer.
+
+ -->
