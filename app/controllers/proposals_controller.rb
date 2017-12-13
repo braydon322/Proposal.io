@@ -1,16 +1,24 @@
 class ProposalsController < ApplicationController
   def new
-    @proposal = Proposal.new
-    @proposal.milestones.build
-    @proposal.fees.build
+    if admin_signed_in?
+      @proposal = Proposal.new
+      @proposal.milestones.build
+      @proposal.fees.build
+    else
+      redirect_to root_path
+      flash[:notice] = "You have to be logged in as a Freelancer to do create a Proposal."
+    end
   end
 
   def create
-    @proposal = Proposal.new(proposal_params)
-    if @proposal.save
-      redirect_to @proposal
+    if User.find_by(:email => params[:proposal][:email])
+      @user = current_admin.users.find_by(:email => params[:proposal][:email])
+      @proposal = @user.proposals.create(proposal_params)
+      redirect_to crtv_path
     else
-      render :new
+      @user = current_admin.users.create(:email => params[:proposal][:email], :password => "Password123", :password_confirmation => "Password123", :admin_id => current_admin.id)
+      @proposal = @user.proposals.create(proposal_params)
+      redirect_to crtv_path
     end
   end
 
@@ -20,6 +28,6 @@ class ProposalsController < ApplicationController
 
   private
   def proposal_params
-    params.require(:proposal).permit(:email, :title, :budget, :why_me, :milestones_attributes => [:content, :due_date], :fees_attributes => [:content, :pricing_breakdown])
+    params.require(:proposal).permit(:user_id, :email, :title, :budget, :why_me, :milestones_attributes => [:content, :due_date], :fees_attributes => [:content, :price_breakdown])
   end
 end

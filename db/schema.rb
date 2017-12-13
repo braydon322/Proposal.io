@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20171213072248) do
 
   create_table "proposals", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "why_me"
+    t.string   "why_me"
     t.string   "title"
     t.string   "email"
     t.integer  "budget"

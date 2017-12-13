@@ -3,6 +3,7 @@ class Proposal < ActiveRecord::Base
   has_many :fees
   has_many :milestones
 
+
   def milestones_attributes=(milestones_attributes)
     milestones_attributes.each do |i, milestone_attributes|
       self.milestones.build(milestone_attributes)

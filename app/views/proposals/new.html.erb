@@ -28,7 +28,7 @@
     <%= milestone_builder.label :content %>
     <%= milestone_builder.text_field :content %><br>
     <%= milestone_builder.label :due_date %>
-    <%= milestone_builder.text_field :due_date %><br>
+    <%= milestone_builder.text_field :due_date, prompt: { day: 'Select day', month: 'Select month', year: 'Select year'}, :order => [:day, :month, :year]%><br>
   <% end %>
 </fieldset>
 <br>

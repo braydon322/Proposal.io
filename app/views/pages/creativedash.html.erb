@@ -1,0 +1,17 @@
+CREATIVE DASHBOARD
+<br>
+
+<%= link_to "Create Proposal", new_proposal_path %>
+
+<br>
+<br>
+
+
+<% @proposals.each do |proposal| %>
+<%= link_to "#{proposal.title}", proposal %>
+<% end %>
+
+<br>
+<br>
+
+<%= link_to "Sign Out", destroy_admin_session_path, method: "delete" %>

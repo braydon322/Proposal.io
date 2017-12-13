@@ -8,7 +8,7 @@ Terms - <%= @proposal.terms %><br>
 
 Milestones:<br>
 <% @proposal.milestones.each.with_index(1) do |milestone, i| %>
-<%= i %>. <%= milestone.content %>
+<%= i %>. <%= milestone.due_date %> - <%= milestone.content %>
 <% end %>
 
 <br>
