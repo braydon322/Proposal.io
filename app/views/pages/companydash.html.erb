@@ -1,7 +1,13 @@
 COMPANY DASHBOARD
 <br>
-<% @proposals.each do |proposal| %>
-<%= link_to "#{proposal.title}", proposal %><br>
+
+<% if @proposals.size != 0 %>
+  <% @proposals.each do |proposal| %>
+  <%= link_to "#{proposal.title}", proposal %>
+  <% end %>
+<% else %>
+  You currently have no proposals. Contact your designer.
 <% end %>
+
 <br>
 <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>

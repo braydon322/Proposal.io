@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   devise_for :admins
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :proposals
   resources :fees
   resources :milestones
 
+
   root to: "pages#index"
-  
+
   get '/creative', to: 'pages#creative'
   get '/company', to: 'pages#company'
   get '/cmpny', to: 'pages#companydash'

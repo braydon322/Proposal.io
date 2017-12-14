@@ -15,9 +15,7 @@ class PagesController < ApplicationController
   end
 
   def companydash
-    @email = current_user.email
-    @id = current_user.id
-    @proposals = Proposal.where(:email => @email)
+    @proposals = current_user.proposals
   end
 
   def creativedash
