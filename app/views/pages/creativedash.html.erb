@@ -1,15 +1,3 @@
-
-<br>
-
-<br>
-<br>
-<br>
-<br>
-
-<%= link_to "Sign Out", destroy_admin_session_path, method: "delete" %>
-
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -38,6 +26,10 @@
     text-decoration: none;
     color: white;
   }
+
+  .profile-pic:hover {
+    opacity: .5;
+  }
 </style>
 
         <!--[if lte IE 8]>
@@ -50,17 +42,12 @@
 </head>
 <body>
 
-
-
-
-
-
 <div id="layout" class="content pure-g">
     <div id="nav" class="pure-u">
         <a href="#" class="nav-menu-button">Menu</a>
 
         <div class="nav-inner">
-
+            <a href="<%= edit_admin_registration_path %>"><img src="<%= current_admin.avatar.url(:medium) %>" style="border-radius: 100%; height: 75px; width: 75px;" class="profile-pic"></a>
             <a href= <%=new_proposal_path %>><button class="primary-button pure-button">New Proposal</button></a>
             <div class="pure-menu">
                 <ul class="pure-menu-list">
@@ -78,7 +65,7 @@
         </div>
     </div>
     <div id="list" class="pure-u-1">
-      <% if @proposals.size != 0 %>
+<% if @proposals.size != 0 %>
         <% @proposals.each do |proposal| %>
         <div class="proposal_link">
         <a href="<%= proposal_path(proposal) %>">
@@ -104,12 +91,6 @@
                     <p class="email-content-subtitle">
                         From <a>the CEO</a> at <span><%= Time.now.strftime("%l:%M %p - %A, %b %e") %></span>
                     </p>
-                </div>
-
-                <div class="email-content-controls pure-u-1-2">
-                    <button class="secondary-button pure-button">Reply</button>
-                    <button class="secondary-button pure-button">Forward</button>
-                    <button class="secondary-button pure-button">Move to</button>
                 </div>
             </div>
 
@@ -156,7 +137,74 @@
 </script>
 
 <% else %>
-You currently have no proposals. Click <%= link_to "here", new_proposal_path %> to create a Proposal!
+      <div class="proposal_link">
+      <a href="<%= new_proposal_path %>">
+        <div class="email-item pure-g">
+          <div class="pure-u-3-4">
+            <h5 class="email-name"> CEO@proposal.io</h5>
+            <h4 class="email-subject"> Create Your First Proposal</h4>
+            <p class="email-desc">
+                See that blue button to the left? Click it to create your first Proposal....
+          </div>
+        </div>
+      </a>
+      </div>
+      </div>
+
+      <div id="main" class="pure-u-1">
+      <div class="email-content">
+          <div class="email-content-header pure-g">
+              <div class="pure-u-1-2">
+                  <h1 class="email-content-title">Welcome to Proposal.io</h1>
+                  <p class="email-content-subtitle">
+                      From <a>the CEO</a> at <span><%= Time.now.strftime("%l:%M %p - %A, %b %e") %></span>
+                  </p>
+              </div>
+          </div>
+
+          <div class="email-content-body">
+              <p>
+                  We know how valuable your time is as 'Creatives', and so, we have created a platform which will allow you to speed up your workflow while at the same time, increasing your productivity.
+              </p>
+              <p>
+                  With Proposal.io, it's simple. Generating Proposals and Quotes has never been easier.
+              </p>
+              <p>
+                  See that big blue button on the left that reads 'New Proposal'? Click it, and it'll be simple from there on.
+              </p>
+              <p>
+                  As you create the Proposal, your client will receive an email notifiying them that they have a new Proposal waiting for them. That same email will contain instructions for logging in and reviewing the proposal you have just created.
+              </p>
+              <p>
+                  Good luck, We hope you enjoy the increased Productivity.
+              </p>
+              <p>
+                  Regards,<br>
+                  Braydon Whitmarsh
+              </p>
+          </div>
+      </div>
+      </div>
+      </div>
+
+      <script src="https://yui-s.yahooapis.com/3.18.1/build/yui/yui-min.js"></script>
+      <script>
+      YUI().use('node-base', 'node-event-delegate', function (Y) {
+
+      var menuButton = Y.one('.nav-menu-button'),
+          nav        = Y.one('#nav');
+
+      // Setting the active class name expands the menu vertically on small screens.
+      menuButton.on('click', function (e) {
+          nav.toggleClass('active');
+      });
+
+      // Your application code goes here...
+
+      });
+      </script>
+
+
 <% end %>
 
 </body>

@@ -4,8 +4,8 @@
  */
 body {
     color: #333;
+    background: white;
 }
-
 
 
 a {
@@ -52,7 +52,7 @@ a {
     width: 100%;
     height: 40px;
     position: relative;
-    background: rgb(37, 42, 58);
+    background: #2C2E3E;
     text-align: center;
 }
 /* Show the "Menu" button on phones */
@@ -161,12 +161,21 @@ a {
     border-left: 6px solid #1b98f8;
 }
 
+.email-content {
+  color: black;
+  width: 70vw;
+}
+
 /* Email Content Styles */
 .email-content-header, .email-content-body, .email-content-footer {
     padding: 1em;
 }
     .email-content-header {
         border-bottom: 1px solid #ddd;
+    }
+
+    .email-content-body {
+      background: #eeeeee;
     }
 
         .email-content-title {

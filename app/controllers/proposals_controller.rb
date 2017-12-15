@@ -28,6 +28,10 @@ class ProposalsController < ApplicationController
     end
   end
 
+  def update
+    binding.pry
+  end
+
   def show
     @proposal = Proposal.find(params[:id])
     if current_admin
