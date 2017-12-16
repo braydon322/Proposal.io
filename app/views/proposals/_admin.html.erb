@@ -83,7 +83,9 @@
             								<table class="container header" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
             									<tr>
             										<td style="padding: 30px 0 30px 0; border-bottom: solid 1px #eeeeee;" align="left">
-            											<a href="#" style="font-size: 30px; text-decoration: none; color: #000000;"><%= @proposal.user.admin.first_name[0] %><%= @proposal.user.admin.last_name[0] %></a>
+            											<a href="#" style="font-size: 30px; text-decoration: none; color: #000000;">
+                                      <%= @proposal.user.admin.first_name[0] %><%= @proposal.user.admin.last_name[0] %>
+                                  </a>
             										</td>
             									</tr>
             								</table>
@@ -144,7 +146,6 @@
                               <tr>
                                 <th style="text-align: left; padding-top:10px;">Milestone</th>
                                 <th style="text-align: left; padding-top:10px;">Due Date</th>
-                                <th style="text-align: left; padding-top:10px;">Time Left</th>
                               </tr>
 
 
@@ -154,7 +155,6 @@
                                 <tr style="background:rgba(46, 237, 137, .1);">
                                   <td><%= i%>. <%= milestone_builder.text_field :content %></td>
                                   <td><%= milestone_builder.text_field :due_date%></td>
-                                  <td>94</td>
                                 </tr>
                               <% end %>
 
@@ -227,9 +227,9 @@
             															<tr>
             																<td class="cta-block__button" width="230" align="center" style="width: 200px;">
             																	<% if @proposal.proposal_accepted %>
-                                              <a href="http://slicejack.com/" style="border: 3px solid #eeeeee; color: #969696; text-decoration: none; padding: 15px 45px; text-transform: uppercase; display: block; text-align: center; font-size: 16px;">You have already signed this document.</a>
+                                              <p style="border: 3px solid #eeeeee; color: #969696; text-decoration: none; padding: 15px 45px; text-transform: uppercase; display: block; text-align: center; font-size: 16px;">You have already signed this document.</p>
                                               <% else %>
-                                              <a href="http://slicejack.com/" style="border: 3px solid; color: #969696; text-decoration: none; padding: 15px 45px; text-transform: uppercase; display: block; text-align: center; font-size: 16px;">Waiting For Signature</a>
+                                              <p style="border: 3px solid; color: #969696; text-decoration: none; padding: 15px 45px; text-transform: uppercase; display: block; text-align: center; font-size: 16px;">Waiting For Signature</p>
                                               <% end %>
                                             </td>
             															</tr>
@@ -240,6 +240,9 @@
             										</td>
             									</tr>
             								</table>
+                            <br>
+                            <br>
+                              <%= t.submit "Save Changes"%>
             								<!-- /// CTA Block -->
 
             								<!-- / Divider -->
@@ -258,6 +261,7 @@
 
             								<!-- / Info Bullets -->
             								<table class="container info-bullets" border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+
             									<tr>
             										<td align="center">
             											<table class="container" border="0" cellpadding="0" cellspacing="0" width="620" align="center" style="width: 620px;">
@@ -286,8 +290,6 @@
             														</table>
             													</td>
             												</tr>
-
-  <%= t.submit "Save Changes"%>
             											</table>
             										</td>
             									</tr>

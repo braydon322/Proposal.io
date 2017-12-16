@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   request.env['omniauth.origin'] || root_path
   end
 
+  def sign(params)
+  end
+  
  protected
 
 end

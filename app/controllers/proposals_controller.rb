@@ -41,6 +41,9 @@ class ProposalsController < ApplicationController
     end
   end
 
+  def sign
+  end
+
   def destroy
     @proposal = Proposal.find_by(:id => params[:id])
     @proposal.destroy
