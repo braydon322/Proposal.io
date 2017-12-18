@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20171214232813) do
     t.boolean  "proposal_accepted", default: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+    t.string   "signer"
   end
 
   create_table "users", force: :cascade do |t|

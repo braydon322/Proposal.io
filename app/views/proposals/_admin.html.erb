@@ -5,7 +5,7 @@
         <a href="#" class="nav-menu-button">Menu</a>
 
         <div class="nav-inner">
-
+          <a href="<%= edit_admin_registration_path %>"><img src="<%= current_admin.avatar.url(:medium) %>" style="border-radius: 100%; height: 75px; width: 75px;" class="profile-pic"></a>
             <a href= <%=new_proposal_path %>><button class="primary-button pure-button">New Proposal</button></a>
             <div class="pure-menu">
                 <ul class="pure-menu-list">
@@ -17,7 +17,7 @@
                     <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="email-label-travel"></span>Travel</a></li>
                     <br>
                     <br>
-                    <li class="pure-menu-item"><%= link_to "Sign Out", destroy_admin_session_path, method: "delete", class: "pure-menu-link" %></li>
+                    <li class="pure-menu-item"><%= link_to "Sign Out", destroy_admin_session_path, method: "destroy", class: "pure-menu-link" %></li>
                 </ul>
             </div>
         </div>
@@ -65,8 +65,6 @@
                 </div>
 
                 <div class="email-content-controls pure-u-1-2">
-                    <button class="secondary-button pure-button">Reply</button>
-                    <button class="secondary-button pure-button">Forward</button>
                     <button class="secondary-button pure-button"><%= link_to "Delete Proposal", proposal_path(@proposal), method: "delete"  %></button>
                 </div>
             </div>
@@ -94,7 +92,7 @@
             								<!-- / Hero subheader -->
             								<table class="container hero-subheader" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
             									<tr>
-            										<td class="hero-subheader__title" style="font-size: 43px; font-weight: bold; padding-top: 60px;" align="left"><%= t.text_field :title %></td>
+            										<td class="hero-subheader__title" style="font-size: 43px; font-weight: bold; padding-top: 60px;" align="left"><% if !@proposal.proposal_accepted %><%= t.text_field :title %><% else %><%=@proposal.title%><% end %></td>
             									</tr>
 
                               <tr>
@@ -102,7 +100,7 @@
             									</tr>
 
             									<tr>
-            										<td class="hero-subheader__content" style="font-size: 16px; line-height: 27px; color: #969696; padding: 0 60px 90px 0;" align="left">Prepared for <%= t.email_field :email %></td>
+            										<td class="hero-subheader__content" style="font-size: 16px; line-height: 27px; color: #969696; padding: 0 60px 90px 0;" align="left">Prepared for <% if !@proposal.proposal_accepted %><%= t.text_field :email %><% else %><%=@proposal.email%><% end %></td>
             									</tr>
             								</table>
 
@@ -150,19 +148,27 @@
 
 
 
+                        <% if @proposal.proposal_accepted%>
                             <% @proposal.milestones.each.with_index(1) do |milestone, i| %>
-                              <%= t.fields_for :milestones, milestone do |milestone_builder| %>
                                 <tr style="background:rgba(46, 237, 137, .1);">
-                                  <td><%= i%>. <%= milestone_builder.text_field :content %></td>
-                                  <td><%= milestone_builder.text_field :due_date%></td>
+                                  <td><%= i%>. <%= milestone.content %></td>
+                                  <td><%= milestone.due_date %></td>
+                                  <% end %>
+                                </tr>
+                        <% else %>
+                              <% @proposal.milestones.each.with_index(1) do |milestone, i| %>
+                                <tr style="background:rgba(46, 237, 137, .1);">
+                                  <%= t.fields_for :milestones_attributes, milestone, {:index => milestone.id } do |milestone_builder| %>
+                                  <td><%= i %><%= milestone_builder.text_field :content %></td>
+                                  <td><%= milestone_builder.text_field :due_date %></td>
+                                  <td> <%= milestone_builder.hidden_field :id %></td>
+                                  <% end %>
                                 </tr>
                               <% end %>
+                        <% end %>
+
 
                             </table>
-
-                              <% end %>
-
-
                             <table class="container" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 620px;">
                               <td style="border-bottom: solid 1px #eeeeee; padding: 35px 0 18px 0; font-size: 26px;" align="left">Pricing Breakdown</td>
                             </table>
@@ -173,16 +179,26 @@
                                 <th style="text-align: left; padding-top:10px;">Price</th>
                               </tr>
 
-                            <% @proposal.fees.each.with_index(1) do |fee, i| %>
-                              <%= t.fields_for :fees, fee do |fee_builder| %>
-                                <tr style="background:rgba(46, 237, 137, .1);">
-                                  <td><%= i%>. <%=  fee_builder.text_field :content %></td>
-                                  <td>$<%= fee_builder.number_field :price_breakdown %></td>
-                                </tr>
-                              <% end %>
-                              <% end %>
 
+                            <% if @proposal.proposal_accepted%>
+                              <% @proposal.fees.each.with_index(1) do |fee, i| %>
+                                  <tr style="background:rgba(46, 237, 137, .1);">
+                                    <td><%= i%>. <%= fee.content %></td>
+                                    <td><%= fee.price_breakdown %></td>
+                                  </tr>
+                                <% end %>
+                            <% else %>
+                              <% @proposal.fees.each.with_index(1) do |fee, i| %>
+                                <%= t.fields_for :fees_attributes, fee, {:index => fee.id } do |fee_builder| %>
+                                  <tr style="background:rgba(46, 237, 137, .1);">
+                                    <td><%= i%>. <%=  fee_builder.text_field :content %></td>
+                                    <td>$<%= fee_builder.number_field :price_breakdown %></td>
+                                    <td> <%= fee_builder.hidden_field :id %></td>
 
+                                  </tr>
+                                <% end %>
+                                <% end %>
+                            <% end %>
 
                               <tr style="font-weight: bold;">
                                 <b><td style="padding-top: 10px;">Total - $<%= @proposal.budget %></td></b>
@@ -227,7 +243,7 @@
             															<tr>
             																<td class="cta-block__button" width="230" align="center" style="width: 200px;">
             																	<% if @proposal.proposal_accepted %>
-                                              <p style="border: 3px solid #eeeeee; color: #969696; text-decoration: none; padding: 15px 45px; text-transform: uppercase; display: block; text-align: center; font-size: 16px;">You have already signed this document.</p>
+                                              <p style="border: 3px solid #eeeeee; color: #969696; text-decoration: none; padding: 15px 45px; text-transform: uppercase; display: block; text-align: center; font-size: 16px;"><%= @proposal.signer %> signed this document.</p>
                                               <% else %>
                                               <p style="border: 3px solid; color: #969696; text-decoration: none; padding: 15px 45px; text-transform: uppercase; display: block; text-align: center; font-size: 16px;">Waiting For Signature</p>
                                               <% end %>
@@ -242,7 +258,9 @@
             								</table>
                             <br>
                             <br>
+                            <% if !@proposal.proposal_accepted %>
                               <%= t.submit "Save Changes"%>
+                            <% end %>
             								<!-- /// CTA Block -->
 
             								<!-- / Divider -->

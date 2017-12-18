@@ -36,7 +36,7 @@
             <link rel="stylesheet" href="css/layouts/email-old-ie.css">
         <![endif]-->
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="css/layouts/email.css">
+            <link rel="stylesheet" href="/css/layouts/email.css">
         <!--<![endif]-->
 
 </head>
@@ -51,12 +51,14 @@
             <a href= <%=new_proposal_path %>><button class="primary-button pure-button">New Proposal</button></a>
             <div class="pure-menu">
                 <ul class="pure-menu-list">
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Projects <span class="email-count">(<%= @proposals.size %>)</span></a></li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Projects <span class="email-count">(<%= Proposal.mine(@proposals).size %>)</span></a></li>
 
-                    <li class="pure-menu-heading">Labels</li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="email-label-personal"></span>Personal</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="email-label-work"></span>Work</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="email-label-travel"></span>Travel</a></li>
+                    <li class="pure-menu-heading">Sort By</li>
+                    <li class="pure-menu-item"><a href=<%= up_path %> class="pure-menu-link"><span class="email-label-personal"></span>Price Asc</a></li>
+                      <li class="pure-menu-item"><a href=<%= down_path %> class="pure-menu-link"><span class="email-label-personal"></span>Price Desc</a></li>
+                    <li class="pure-menu-item"><a href=<%= date_down_path %> class="pure-menu-link"><span class="email-label-work"></span>Date Created<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></li>
+                    <li class="pure-menu-item"><a href=<%= signed_path %> class="pure-menu-link"><span class="email-label-travel"></span>Signed<span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
+                    <li class="pure-menu-item"><a href=<%= unsigned_path %> class="pure-menu-link"><span class="email-label-travel"></span>Not-Signed<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
                     <br>
                     <br>
                     <li class="pure-menu-item"><%= link_to "Sign Out", destroy_admin_session_path, method: "delete", class: "pure-menu-link" %></li>
@@ -65,8 +67,8 @@
         </div>
     </div>
     <div id="list" class="pure-u-1">
-<% if @proposals.size != 0 %>
-        <% @proposals.each do |proposal| %>
+<% if Proposal.mine(@proposals).size != 0 %>
+        <% Proposal.mine(@proposals).each do |proposal| %>
         <div class="proposal_link">
         <a href="<%= proposal_path(proposal) %>">
                 <div class="email-item pure-g">

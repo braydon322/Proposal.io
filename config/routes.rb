@@ -7,12 +7,15 @@ Rails.application.routes.draw do
 
   root to: "pages#index"
 
+  get '/users/sign_out' => 'devise/sessions#destroy'
+  get '/sort', to: 'pages#sort', as: "sort"
   get '/creative', to: 'pages#creative'
   get '/profile', to: 'pages#profile'
   get '/company', to: 'pages#company'
   get '/cmpny', to: 'pages#companydash'
   get '/crtv', to: 'pages#creativedash'
   get '/proposals/:id/sign', to: 'proposals#sign', as: "sign"
+  patch '/proposals/:id/sign', to: 'proposals#sign_check', as: "verify"
   get '/crtv/price_up', to: 'proposals#price_up', as: "up"
   get '/crtv/price_down', to: 'proposals#price_down', as: "down"
   get '/crtv/signed', to: 'proposals#signed', as: "signed"

@@ -12,27 +12,35 @@
   <%= f.label :why_me %>
   <%= f.text_field :why_me %>
 <br>
+
 <fieldset>
   <legend>Fees</legend>
-  <%= f.fields_for :fees do |fee_builder| %>
+  <%= f.fields_for :fees, @proposal.fees.each do |fee_builder| %>
     <%= fee_builder.label :content %>
     <%= fee_builder.text_field :content %><br>
     <%= fee_builder.label :price_breakdown %>
     <%= fee_builder.number_field :price_breakdown %><br>
+    <%= fee_builder.hidden_field :proposal_id %>
   <% end %>
+
 </fieldset>
+
 <br>
+
 <fieldset>
   <legend>Milestones</legend>
-  <%= f.fields_for :milestones do |milestone_builder| %>
-    <%= milestone_builder.label :content %>
-    <%= milestone_builder.text_field :content %><br>
-    <%= milestone_builder.label :due_date %>
-    <%= milestone_builder.text_field :due_date, prompt: { day: 'Select day', month: 'Select month', year: 'Select year'}, :order => [:day, :month, :year]%><br>
-  <% end %>
+    <%= f.fields_for :milestones, @proposal.milestones.each do |milestone_builder| %>
+      <%= milestone_builder.label :content %>
+      <%= milestone_builder.text_field :content %><br>
+      <%= milestone_builder.label :due_date %>
+      <%= milestone_builder.text_field :due_date, prompt: { day: 'Select day', month: 'Select month', year: 'Select year'}, :order => [:day, :month, :year]%><br>
+      <%= milestone_builder.hidden_field :proposal_id %>
+    <% end %>
 </fieldset>
+
 <br>
   <%= f.submit %>
+
 <% end %>
 </fieldset>
 

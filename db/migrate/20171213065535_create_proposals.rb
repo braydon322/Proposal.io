@@ -10,6 +10,7 @@ class CreateProposals < ActiveRecord::Migration
       t.boolean :invoice_paid, :default => false
       t.boolean :proposal_accepted, :default => false
       t.timestamps null: false
+      t.string :signer
     end
   end
 end
