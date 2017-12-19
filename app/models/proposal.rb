@@ -3,35 +3,23 @@ class Proposal < ActiveRecord::Base
   has_many :fees
   has_many :milestones
 
-
-  def self.mine(proposals)
-    proposals
-  end
-
-  def self.price_up(proposals)
+  def self.sort(proposals, sort_type)
+    if sort_type == "price_up"
     proposals.order(budget: :asc)
-  end
-
-  def self.price_down(proposals)
+    elsif sort_type == "price_down"
     proposals.order(budget: :desc)
-  end
-
-  def self.date_up(proposals)
+    elsif sort_type == "date_up"
     proposals.order(created_at: :asc)
-  end
-
-  def self.date_down(proposals)
+    elsif sort_type == "date_down"
     proposals.order(created_at: :desc)
-  end
-
-  def self.signed(proposals)
+    elsif sort_type == "signed"
     proposals.where(:proposal_accepted => true)
-  end
-
-  def self.unsigned(proposals)
+    elsif sort_type == "unsigned"
     proposals.where(:proposal_accepted => !true)
+    else
+    proposals
+    end
   end
-
 
   def milestones_attributes=(milestones_attributes)
     milestones_attributes.each do |i, milestone_attributes|

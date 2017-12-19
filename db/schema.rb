@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214232813) do
+ActiveRecord::Schema.define(version: 20171218222253) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "first_name"
@@ -70,6 +70,10 @@ ActiveRecord::Schema.define(version: 20171214232813) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone"
+    t.string   "company_name"
     t.integer  "admin_id"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -85,6 +89,10 @@ ActiveRecord::Schema.define(version: 20171214232813) do
     t.datetime "updated_at",                          null: false
     t.string   "provider"
     t.string   "uid"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

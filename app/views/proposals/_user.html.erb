@@ -4,15 +4,15 @@
 
         <div class="nav-inner">
 
-            <a href= <%=new_proposal_path %>><button class="primary-button pure-button">New Proposal</button></a>
             <div class="pure-menu">
                 <ul class="pure-menu-list">
-                    <li class="pure-menu-item"><a href="<%= crtv_path %>" class="pure-menu-link">Projects <span class="email-count">(<%= @proposals.size %>)</span></a></li>
+                    <li class="pure-menu-item"><a href="<%= cmpny_path %>" class="pure-menu-link">Projects <span class="email-count">(<%= @proposals.size %>)</span></a></li>
 
-                    <li class="pure-menu-heading">Labels</li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="email-label-personal"></span>Personal</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="email-label-work"></span>Work</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="email-label-travel"></span>Travel</a></li>
+                    <li class="pure-menu-heading">SORT BY</li>
+                    <li class="pure-menu-item"><a href="/cmpny?sort=price_up" class="pure-menu-link"><span class="email-label-personal"></span>Price</a></li>
+                    <li class="pure-menu-item"><a href="/cmpny?sort=date_up" class="pure-menu-link"><span class="email-label-work"></span>Date<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></li>
+                    <li class="pure-menu-item"><a href="/cmpny?sort=signed" class="pure-menu-link"><span class="email-label-travel"></span>Signed<span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
+                    <li class="pure-menu-item"><a href="/cmpny?sort=unsigned" class="pure-menu-link"><span class="email-label-travel"></span>Not-Signed<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
                     <br>
                     <br>
                     <li class="pure-menu-item"><%= link_to "Sign Out", destroy_admin_session_path, method: "delete", class: "pure-menu-link" %></li>
@@ -60,12 +60,6 @@
                     <p class="email-content-subtitle">
                         Prepared for <a><%= @proposal.email %></a> at <span><%= Time.now.strftime("%l:%M %p - %A, %b %e") %></span>
                     </p>
-                </div>
-
-                <div class="email-content-controls pure-u-1-2">
-                    <button class="secondary-button pure-button">Reply</button>
-                    <button class="secondary-button pure-button">Forward</button>
-                    <button class="secondary-button pure-button"><%= link_to "Delete Proposal", proposal_path(@proposal), method: "delete"  %></button>
                 </div>
             </div>
               <div class="email-content-body">

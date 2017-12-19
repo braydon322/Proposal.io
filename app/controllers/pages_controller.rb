@@ -15,11 +15,11 @@ class PagesController < ApplicationController
   end
 
   def companydash
-    @proposals = current_user.proposals
+    @proposals = Proposal.sort(current_user.proposals, params[:sort])
   end
 
   def creativedash
-    @proposals = current_admin.proposals
+    @proposals = Proposal.sort(current_admin.proposals, params[:sort])
   end
 
 
