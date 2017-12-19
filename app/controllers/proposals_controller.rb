@@ -1,9 +1,9 @@
 class ProposalsController < ApplicationController
-  
+
   def new
     if admin_signed_in?
       @proposal = Proposal.new
-      2.times do
+      3.times do
         @proposal.milestones.build
         @proposal.fees.build
       end
@@ -15,19 +15,21 @@ class ProposalsController < ApplicationController
 
   def create
     if User.find_by(:email => params[:proposal][:email])
-
       @user = User.find_by(:email => params[:proposal][:email])
       if current_admin.users.include?(@user)
         @user = current_admin.users.find_by(:email => params[:proposal][:email])
         @proposal = @user.proposals.create(proposal_params)
       else
         @user.admin = current_admin
+        current_admin.users << @user
+        @proposal = @user.proposals.create(proposal_params)
+        @proposal.save
+        current_admin.save
+        @user.save
       end
-        # current_admin.users << @user
       redirect_to crtv_path
     else
       @user = current_admin.users.create(:email => params[:proposal][:email], :password => "Password123", :password_confirmation => "Password123", :admin_id => current_admin.id)
-
       @proposal = @user.proposals.create(proposal_params)
       redirect_to crtv_path
     end

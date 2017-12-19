@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root to: "pages#index"
 
   get '/users/sign_out' => 'devise/sessions#destroy'
+  get '/admins/sign_out' => 'devise/sessions#destroy'
   get '/sort', to: 'pages#sort', as: "sort"
   get '/creative', to: 'pages#creative'
   get '/profile', to: 'pages#profile'

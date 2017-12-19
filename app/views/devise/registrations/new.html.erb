@@ -3,8 +3,9 @@
       <h5>SIGN UP</h5>
       <br>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true })  do |f| %>
+    <div id="error_explanation">
       <%= devise_error_messages! %>
-
+    </div>
       <div class="image-upload">
           <label for="avatar">
             <span>
