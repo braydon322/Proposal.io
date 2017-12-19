@@ -14,44 +14,65 @@ class ProposalsController < ApplicationController
   end
 
   def create
-    if User.find_by(:email => params[:proposal][:email])
-      @user = User.find_by(:email => params[:proposal][:email])
-      if current_admin.users.include?(@user)
-        @user = current_admin.users.find_by(:email => params[:proposal][:email])
-        @proposal = @user.proposals.create(proposal_params)
-      else
-        @user.admin = current_admin
-        current_admin.users << @user
-        @proposal = @user.proposals.create(proposal_params)
-        @proposal.save
-        current_admin.save
-        @user.save
-      end
-      redirect_to crtv_path
+    if any_blanks?
     else
-      @user = current_admin.users.create(:email => params[:proposal][:email], :password => "Password123", :password_confirmation => "Password123", :admin_id => current_admin.id)
-      @proposal = @user.proposals.create(proposal_params)
-      redirect_to crtv_path
+      if User.find_by(:email => params[:proposal][:email])
+        @user = User.find_by(:email => params[:proposal][:email])
+        if current_admin.users.include?(@user)
+          @user = current_admin.users.find_by(:email => params[:proposal][:email])
+
+          if @user.proposals.create(proposal_params).valid?
+            @proposal = @user.proposals.create(proposal_params)
+          else
+            flash[:notice] = "Invalid Proposal."
+            redirect_to :back
+          end
+        else
+          @user.admin = current_admin
+          current_admin.users << @user
+          @proposal = @user.proposals.create(proposal_params)
+          @proposal.save
+          current_admin.save
+          @user.save
+        end
+        redirect_to crtv_path
+      else
+        if @user = current_admin.users.create(:email => params[:proposal][:email], :password => "Password123", :password_confirmation => "Password123", :admin_id => current_admin.id).valid?
+          @user = current_admin.users.create(:email => params[:proposal][:email], :password => "Password123", :password_confirmation => "Password123", :admin_id => current_admin.id)
+          if @user.proposals.create(proposal_params).valid?
+            @proposal = @user.proposals.create(proposal_params)
+            redirect_to crtv_path
+          else
+            flash[:notice] = "Invalid Proposal."
+            redirect_to :back
+          end
+        else
+          flash[:notice] = "Invalid Email."
+          redirect_to :back
+        end
+      end
     end
   end
 
   def update
-    @proposal = Proposal.find(params[:id])
-
-    if @proposal.proposal_accepted
-      flash[:notice] = "You cannot change the proposal after it has already been signed."
-      if admin_signed_in?
-        redirect_to crtv_path
-      else
-        redirect_to cmpny_path
-      end
+    if any_blanks?
     else
-      @proposal.update(proposal_params)
+      @proposal = Proposal.find(params[:id])
 
-      if current_admin
-        redirect_to crtv_path
+      if @proposal.proposal_accepted
+        flash[:notice] = "You cannot change the proposal after it has already been signed."
+        if admin_signed_in?
+          redirect_to crtv_path
+        else
+          redirect_to cmpny_path
+        end
       else
-        redirect_to cmpny_path
+        @proposal.update(proposal_params)
+        if current_admin
+          redirect_to crtv_path
+        else
+          redirect_to cmpny_path
+        end
       end
     end
   end
@@ -92,6 +113,72 @@ class ProposalsController < ApplicationController
   end
 
   private
+
+  def any_blanks?
+    if params[:proposal][:email]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Email cannot be blank."
+    elsif params[:proposal][:title]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Title cannot be blank."
+    elsif params[:proposal][:budget]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Budget cannot be blank."
+    elsif params[:proposal][:fees_attributes]["0"][:content]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:fees_attributes]["1"][:content]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:fees_attributes]["2"][:content]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:fees_attributes]["0"][:price_breakdown]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:fees_attributes]["1"][:price_breakdown]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:fees_attributes]["2"][:price_breakdown]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:milestones_attributes]["0"][:content]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:milestones_attributes]["1"][:content]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:milestones_attributes]["2"][:content]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:milestones_attributes]["0"][:due_date]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:milestones_attributes]["1"][:due_date]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    elsif params[:proposal][:milestones_attributes]["2"][:due_date]== ""
+      true
+      redirect_to :back
+      flash[:notice] = "Fee Content cannot be blank."
+    else
+    end
+  end
+
   def proposal_params
     params.require(:proposal).permit(:user_id, :email, :title, :signer, :budget, :why_me, :milestones_attributes => [:id, :content, :due_date], :fees_attributes => [:id, :content, :price_breakdown])
   end

@@ -2,6 +2,12 @@ class Proposal < ActiveRecord::Base
   belongs_to :user
   has_many :fees
   has_many :milestones
+  validates_presence_of   :email, allow_blank: false
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true , format: { with: VALID_EMAIL_REGEX }
+  validates_presence_of   :title, allow_blank: false, length: { maximum: 50 }
+  validates_presence_of   :budget, allow_blank: false, min: 0
+
 
   def self.sort(proposals, sort_type)
     if sort_type == "price_up"
