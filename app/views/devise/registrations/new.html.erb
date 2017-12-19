@@ -20,8 +20,8 @@
     <%= f.text_field :last_name, autofocus: true, placeholder: :last_name %>
     <%= f.text_field :company_name, autofocus: true, placeholder: :company_name %>
     <%= f.email_field :email, autofocus: true, placeholder: :email %>
-    <%= f.password_field :password, autocomplete: "off", placeholder: "Password" %>
     <%= f.text_field :phone, maxlength: 10, placeholder: :phone %>
+    <%= f.password_field :password, autocomplete: "off", placeholder: "Password" %>
     <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Retype Password" %>
     <%= f.submit "Sign Up" %>
     <br>
