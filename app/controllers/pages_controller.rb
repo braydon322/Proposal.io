@@ -3,6 +3,15 @@ class PagesController < ApplicationController
     signed_in?
   end
 
+  def dash
+    if !current_admin
+      redirect_to new_admin_session_path
+    else
+      @current_admin = current_admin
+      render 'dash'
+    end
+  end
+
   def company
     signed_in?
   end

@@ -8,6 +8,26 @@ class Proposal < ActiveRecord::Base
   validates_presence_of   :title, allow_blank: false, length: { maximum: 50 }
   validates_presence_of   :budget, allow_blank: false, min: 0
 
+  def self.total_earned(current_admin)
+    total_earned = 0
+    current_admin.proposals.each do |t|
+      total_earned += t.budget
+    end
+    total_earned
+  end
+
+  def self.total_projects(current_admin)
+    current_admin.proposals.size
+  end
+
+  def self.clients(current_admin)
+    clients = []
+    current_admin.proposals.each do |t|
+      clients << t.user
+    end
+    clients
+  end
+
 
   def self.sort(proposals, sort_type)
     if sort_type == "price_up"

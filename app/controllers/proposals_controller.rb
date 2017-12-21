@@ -20,8 +20,7 @@ class ProposalsController < ApplicationController
         @user = User.find_by(:email => params[:proposal][:email])
         if current_admin.users.include?(@user)
           @user = current_admin.users.find_by(:email => params[:proposal][:email])
-
-          if @user.proposals.create(proposal_params).valid?
+          if @user.save
             @proposal = @user.proposals.create(proposal_params)
           else
             flash[:notice] = "Invalid Proposal."
@@ -37,8 +36,8 @@ class ProposalsController < ApplicationController
         end
         redirect_to crtv_path
       else
-        if @user = current_admin.users.create(:email => params[:proposal][:email], :password => "Password123", :password_confirmation => "Password123", :admin_id => current_admin.id).valid?
           @user = current_admin.users.create(:email => params[:proposal][:email], :password => "Password123", :password_confirmation => "Password123", :admin_id => current_admin.id)
+        if @user.save
           if @user.proposals.create(proposal_params).valid?
             @proposal = @user.proposals.create(proposal_params)
             redirect_to crtv_path
@@ -127,54 +126,6 @@ class ProposalsController < ApplicationController
       true
       redirect_to :back
       flash[:notice] = "Budget cannot be blank."
-    elsif params[:proposal][:fees_attributes]["0"][:content]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:fees_attributes]["1"][:content]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:fees_attributes]["2"][:content]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:fees_attributes]["0"][:price_breakdown]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:fees_attributes]["1"][:price_breakdown]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:fees_attributes]["2"][:price_breakdown]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:milestones_attributes]["0"][:content]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:milestones_attributes]["1"][:content]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:milestones_attributes]["2"][:content]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:milestones_attributes]["0"][:due_date]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:milestones_attributes]["1"][:due_date]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
-    elsif params[:proposal][:milestones_attributes]["2"][:due_date]== ""
-      true
-      redirect_to :back
-      flash[:notice] = "Fee Content cannot be blank."
     else
     end
   end

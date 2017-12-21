@@ -6,8 +6,8 @@
 
             <div class="pure-menu">
                 <ul class="pure-menu-list">
+                  <a href="<%= edit_admin_registration_path %>"><img src="<%= current_user.avatar.url(:medium) %>" style="margin-left: 25px; border-radius: 100%; height: 75px; width: 75px;" class="profile-pic"></a>
                     <li class="pure-menu-item"><a href="<%= cmpny_path %>" class="pure-menu-link">Projects <span class="email-count">(<%= @proposals.size %>)</span></a></li>
-
                     <li class="pure-menu-heading">SORT BY</li>
                     <li class="pure-menu-item"><a href="/cmpny?sort=price_up" class="pure-menu-link"><span class="email-label-personal"></span>Price</a></li>
                     <li class="pure-menu-item"><a href="/cmpny?sort=date_up" class="pure-menu-link"><span class="email-label-work"></span>Date<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></li>
